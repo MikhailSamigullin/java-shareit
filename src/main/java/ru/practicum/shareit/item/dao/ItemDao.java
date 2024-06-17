@@ -1,16 +1,16 @@
-package ru.practicum.shareit.item.dto;
+package ru.practicum.shareit.item.dao;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class ItemDto {
+@Builder
+public class ItemDao {
   private int id;
   @NotNull(message = "Отсутствует обязательный параметр name.")
   @NotEmpty(message = "Название не может быть пустым.")
@@ -20,5 +20,6 @@ public class ItemDto {
   private String description;
   @NotNull(message = "Отсутствует обязательный параметр available.")
   private boolean available;
-  private int owner = 0;
+  @NotNull(message = "Отсутствует обязательный параметр owner.")
+  private int owner;
 }
