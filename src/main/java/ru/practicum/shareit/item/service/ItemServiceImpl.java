@@ -38,6 +38,7 @@ public class ItemServiceImpl implements ItemService {
   }
 
   public Optional<ItemDto> create(ItemDto item, int userId) {
+    System.out.println(item);
     userStorage.checkUserId(userId);
     item.setOwner(userId);
     return Optional.of(ItemMapper.toDto(itemStorage.create(ItemMapper.toDao(item))));
@@ -45,7 +46,8 @@ public class ItemServiceImpl implements ItemService {
 
   public Optional<ItemDto> patch(ItemCustomDto item, int userId, int itemId) {
     Optional<ItemDto> itemDto = findById(itemId);
-    ItemDto newItem = new ItemDto();
+//    ItemDto newItem = new ItemDto();
+    ItemDto newItem = null;
     checkUserId(userId);
     if (itemDto.isPresent()) {
       newItem = itemDto.get();
@@ -61,6 +63,7 @@ public class ItemServiceImpl implements ItemService {
         newItem.setAvailable(false);
       }
     }
+    assert newItem != null;
     ItemDao itemDao = itemStorage.patch(ItemMapper.toDao(newItem));
     return Optional.of(ItemMapper.toDto(Objects.requireNonNull(itemDao)));
   }

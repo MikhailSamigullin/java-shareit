@@ -8,6 +8,7 @@ import ru.practicum.shareit.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 @Component
 public class InMemoryUserStorage implements UserStorage {
@@ -37,7 +38,11 @@ public class InMemoryUserStorage implements UserStorage {
   public UserDao patch(UserDao user) {
     int id = user.getId();
     checkUserId(id);
-    checkEmail(user.getEmail());
+    Optional<UserDao> existsUser = users.values().stream().filter(item -> item.getEmail().equals(user.getEmail())).findFirst();
+    if (existsUser.isPresent() && user.getId() != existsUser.get().getId()) {
+      throw new ConflictException("Такой email уже используется.");
+    }
+
     users.remove(id);
     users.put(id, user);
     return findById(id);

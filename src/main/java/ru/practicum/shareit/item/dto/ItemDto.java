@@ -1,15 +1,15 @@
 package ru.practicum.shareit.item.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
+//@RequiredArgsConstructor
+@ToString
 public class ItemDto {
   private int id;
   @NotNull(message = "Отсутствует обязательный параметр name.")
